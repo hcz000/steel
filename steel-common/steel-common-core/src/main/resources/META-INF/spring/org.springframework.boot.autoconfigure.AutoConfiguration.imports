@@ -1,0 +1,5 @@
+com.gv.steel.common.core.config.JacksonConfiguration
+com.gv.steel.common.core.config.TaskExecutorConfiguration
+com.gv.steel.common.core.config.ValidationI18nConfiguration
+com.gv.steel.common.core.config.ResolverConfiguration
+com.gv.steel.common.core.context.SpringContextHolder

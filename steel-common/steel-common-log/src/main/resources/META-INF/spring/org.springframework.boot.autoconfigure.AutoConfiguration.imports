@@ -1,0 +1,2 @@
+com.gv.steel.common.log.LogAutoConfiguration
+com.gv.steel.common.log.init.ApplicationLoggerInitializer

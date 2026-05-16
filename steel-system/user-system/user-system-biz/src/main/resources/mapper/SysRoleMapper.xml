@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.user.dao.SysRoleDao">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.user.entity.SysRole">
+        <id column="id" property="id"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_code" property="roleCode"/>
+        <result column="role_desc" property="roleDesc"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_by" property="updateBy"/>
+    </resultMap>
+
+    <!-- 通过用户ID，查询角色信息-->
+    <select id="listRolesByUserId" resultMap="BaseResultMap">
+        SELECT r.id,
+               r.role_name,
+               r.role_code,
+               r.role_desc,
+               r.sort_order,
+               r.delete_flag,
+               r.create_time,
+               r.update_time,
+               r.update_by,
+               r.create_by
+        FROM sys_role r,
+             sys_user_role sur
+        WHERE r.id = sur.role_id
+          AND r.delete_flag = 0
+          and sur.user_id = #{userId}
+    </select>
+</mapper>

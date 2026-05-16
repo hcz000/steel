@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.HisExchangeRateDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.HisExchangeRate">
+        <result column="id" property="id"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="nid" property="nid"/>
+        <result column="target_short_name" property="targetShortName"/>
+        <result column="source_short_name" property="sourceShortName"/>
+        <result column="target_name" property="targetName"/>
+        <result column="source_name" property="sourceName"/>
+        <result column="exchange_rate" property="exchangeRate"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+                    create_by,
+                    create_time,
+                nid, target_short_name, source_short_name, target_name, source_name, exchange_rate
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="nid != null and nid != ''">
+                and nid = #{nid}
+            </if>
+            <if test="targetShortName != null and targetShortName != ''">
+                and target_short_name = #{targetShortName}
+            </if>
+            <if test="sourceShortName != null and sourceShortName != ''">
+                and source_short_name = #{sourceShortName}
+            </if>
+            <if test="targetName != null and targetName != ''">
+                and target_name = #{targetName}
+            </if>
+            <if test="sourceName != null and sourceName != ''">
+                and source_name = #{sourceName}
+            </if>
+            <if test="exchangeRate != null and exchangeRate != ''">
+                and exchange_rate = #{exchangeRate}
+            </if>
+        </where>
+    </sql>
+</mapper>

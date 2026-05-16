@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.InvoiceTitleDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.InvoiceTitle">
+        <result column="id" property="id"/>
+        <result column="create_name" property="createName"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="invoice_title_name" property="invoiceTitleName"/>
+        <result column="freight" property="freight"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+                    create_name,
+                    create_by,
+                    create_time,
+                    update_by,
+                    update_time,
+                    delete_flag,
+                    version,
+                    tenant_id,
+                invoice_title_name, freight
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="invoiceTitleName != null and invoiceTitleName != ''">
+                and invoice_title_name = #{invoiceTitleName}
+            </if>
+            <if test="freight != null and freight != ''">
+                and freight = #{freight}
+            </if>
+        </where>
+    </sql>
+</mapper>

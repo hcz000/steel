@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.RollingRequireDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.RollingRequire">
+        <result column="id" property="id"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="table_name" property="tableName"/>
+        <result column="table_id" property="tableId"/>
+        <result column="material_quality" property="materialQuality"/>
+        <result column="thickness_tolerance" property="thicknessTolerance"/>
+        <result column="surface_grade" property="surfaceGrade"/>
+        <result column="hardness_after_finish" property="hardnessAfterFinish"/>
+        <result column="spheroidized_structure" property="spheroidizedStructure"/>
+        <result column="elongation_rate" property="elongationRate"/>
+        <result column="finish" property="finish"/>
+        <result column="remark" property="remark"/>
+        <result column="ts" property="ts"/>
+        <result column="ys" property="ys"/>
+        <result column="el" property="el"/>
+        <result column="hardness" property="hardness"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+                    create_by,
+                    create_time,
+                    update_by,
+                    update_time,
+                    delete_flag,
+                    version,
+                    tenant_id,
+                table_name, table_id, material_quality, thickness_tolerance, surface_grade, hardness_after_finish, spheroidized_structure, elongation_rate, finish, remark,ts,ys,el,hardness
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="tableName != null and tableName != ''">
+                and table_name = #{tableName}
+            </if>
+            <if test="tableId != null and tableId != ''">
+                and table_id = #{tableId}
+            </if>
+            <if test="materialQuality != null and materialQuality != ''">
+                and material_quality = #{materialQuality}
+            </if>
+            <if test="thicknessTolerance != null and thicknessTolerance != ''">
+                and thickness_tolerance = #{thicknessTolerance}
+            </if>
+            <if test="surfaceGrade != null and surfaceGrade != ''">
+                and surface_grade = #{surfaceGrade}
+            </if>
+            <if test="hardnessAfterFinish != null and hardnessAfterFinish != ''">
+                and hardness_after_finish = #{hardnessAfterFinish}
+            </if>
+            <if test="spheroidizedStructure != null and spheroidizedStructure != ''">
+                and spheroidized_structure = #{spheroidizedStructure}
+            </if>
+            <if test="elongationRate != null and elongationRate != ''">
+                and elongation_rate = #{elongationRate}
+            </if>
+            <if test="finish != null and finish != ''">
+                and finish = #{finish}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="ts != null and ts != ''">
+                and ts = #{ts}
+            </if>
+            <if test="ys != null and ys != ''">
+                and ys = #{ys}
+            </if>
+            <if test="el != null and el != ''">
+                and el = #{el}
+            </if>
+            <if test="hardness != null and hardness != ''">
+                and hardness = #{hardness}
+            </if>
+        </where>
+    </sql>
+</mapper>

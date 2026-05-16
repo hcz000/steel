@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.CustomerProfileDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.CustomerProfile">
+        <result column="id" property="id"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="factory_id" property="factoryId"/>
+        <result column="customer_type" property="customerType"/>
+        <result column="customer_code" property="customerCode"/>
+        <result column="customer_name" property="customerName"/>
+        <result column="monthly_statement_way" property="monthlyStatementWay"/>
+        <result column="delivery_category_id" property="deliveryCategoryId"/>
+        <result column="payment_terms" property="paymentTerms"/>
+        <result column="salesman_id" property="salesmanId"/>
+        <result column="salesman_name" property="salesmanName"/>
+        <result column="business_type" property="businessType"/>
+        <result column="processing_cost_weighing_way" property="processingCostWeighingWay"/>
+        <result column="tax_inclusive_flag" property="taxInclusiveFlag"/>
+        <result column="tax_rete" property="taxRete"/>
+        <result column="print_storage_flag" property="printStorageFlag"/>
+        <result column="raw_material_label_id" property="rawMaterialLabelId"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="sheet_product_label_id" property="sheetProductLabelId"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="strip_product_label_id" property="stripProductLabelId"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="single_strip_product_label_id" property="singleStripProductLabelId"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="delivery_label_id" property="deliveryLabelId"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+                    create_by,
+                    create_time,
+                    update_by,
+                    update_time,
+                    delete_flag,
+                    version,
+                    tenant_id,
+                parent_id, factory_id, customer_type, customer_code, customer_name, monthly_statement_way, delivery_category_id, payment_terms, salesman_id, salesman_name, business_type, processing_cost_weighing_way, tax_inclusive_flag, tax_rete, print_storage_flag, raw_material_label_id, sheet_product_label_id, strip_product_label_id, single_strip_product_label_id, delivery_label_id
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="parentId != null and parentId != ''">
+                and parent_id = #{parentId}
+            </if>
+            <if test="factoryId != null and factoryId != ''">
+                and factory_id = #{factoryId}
+            </if>
+            <if test="customerType != null and customerType != ''">
+                and customer_type = #{customerType}
+            </if>
+            <if test="customerCode != null and customerCode != ''">
+                and customer_code = #{customerCode}
+            </if>
+            <if test="customerName != null and customerName != ''">
+                and customer_name = #{customerName}
+            </if>
+            <if test="monthlyStatementWay != null and monthlyStatementWay != ''">
+                and monthly_statement_way = #{monthlyStatementWay}
+            </if>
+            <if test="deliveryCategoryId != null and deliveryCategoryId != ''">
+                and delivery_category_id = #{deliveryCategoryId}
+            </if>
+            <if test="paymentTerms != null and paymentTerms != ''">
+                and payment_terms = #{paymentTerms}
+            </if>
+            <if test="salesmanId != null and salesmanId != ''">
+                and salesman_id = #{salesmanId}
+            </if>
+            <if test="salesmanName != null and salesmanName != ''">
+                and salesman_name = #{salesmanName}
+            </if>
+            <if test="businessType != null and businessType != ''">
+                and business_type = #{businessType}
+            </if>
+            <if test="processingCostWeighingWay != null and processingCostWeighingWay != ''">
+                and processing_cost_weighing_way = #{processingCostWeighingWay}
+            </if>
+            <if test="taxInclusiveFlag != null and taxInclusiveFlag != ''">
+                and tax_inclusive_flag = #{taxInclusiveFlag}
+            </if>
+            <if test="taxRete != null and taxRete != ''">
+                and tax_rete = #{taxRete}
+            </if>
+            <if test="printStorageFlag != null and printStorageFlag != ''">
+                and print_storage_flag = #{printStorageFlag}
+            </if>
+            <if test="rawMaterialLabelId != null and rawMaterialLabelId != ''">
+                and raw_material_label_id = #{rawMaterialLabelId}
+            </if>
+            <if test="sheetProductLabelId != null and sheetProductLabelId != ''">
+                and sheet_product_label_id = #{sheetProductLabelId}
+            </if>
+            <if test="stripProductLabelId != null and stripProductLabelId != ''">
+                and strip_product_label_id = #{stripProductLabelId}
+            </if>
+            <if test="singleStripProductLabelId != null and singleStripProductLabelId != ''">
+                and single_strip_product_label_id = #{singleStripProductLabelId}
+            </if>
+            <if test="deliveryLabelId != null and deliveryLabelId != ''">
+                and delivery_label_id = #{deliveryLabelId}
+            </if>
+        </where>
+    </sql>
+    <sql id="BaseCustomerPage_Column">
+        tcp.id,
+        tcp.create_time,
+        tcp.parent_id,
+        tcp.factory_id,
+        tcp.customer_type,
+        tcp.customer_code,
+        tcp.customer_name,
+        tcp.factory_name,
+    </sql>
+    <select id="selectDelegateCustomPage" resultType="com.gv.steel.system.base.vo.CustomerProfilePageVO">
+        select
+        <include refid="BaseCustomerPage_Column"/>
+        array_to_string(array_agg(ctcp.customer_code),',') as trade_customer_name,
+        tpc.id as process_contract_id, tcp.monthly_statement_way
+        from t_customer_profile tcp
+        left join t_customer_profile ctcp on ctcp.parent_id = tcp.id and ctcp.delete_flag = 0
+        left join t_processing_contract tpc on tpc.customer_id = tcp.id
+        <where>
+            and tcp.delete_flag = 0 and tcp.customer_type = 0 and tcp.parent_id = 0
+            <if test="query.factoryId != null">
+                and tcp.factory_id = #{query.factoryId}
+            </if>
+            <if test="query.customerCode != null and query.customerCode != ''">
+                <bind name="customerCodeLike" value="'%' + query.customerCode + '%'"/>
+                and tcp.customer_code like #{customerCodeLike}
+            </if>
+            <if test="query.customerName != null and query.customerName != ''">
+                <bind name="customerNameLike" value="'%' + query.customerName + '%'"/>
+                and tcp.customer_name like #{customerNameLike}
+            </if>
+            <if test="query.createTime != null and query.createTime.length == 2">
+                and tcp.create_time between #{query.createTime[0]} and #{query.createTime[1]}
+            </if>
+        </where>
+        group by tcp.id, tcp.create_time, tcp.parent_id, tcp.factory_id,
+        tcp.customer_type, tcp.customer_code, tcp.customer_name, tcp.factory_name,tpc.id
+        order by tcp.create_time desc
+    </select>
+    <select id="selectTradeCustomPage" resultType="com.gv.steel.system.base.vo.CustomerProfilePageVO">
+        select
+        <include refid="BaseCustomerPage_Column"/>
+        ptcp.customer_code delegate_customer_name
+        from t_customer_profile tcp
+        join t_customer_profile ptcp on ptcp.id = tcp.parent_id and ptcp.delete_flag = 0
+        <where>
+            and tcp.delete_flag = 0 and tcp.customer_type = 1
+            <if test="query.customerId != null">
+                and tcp.parent_id = #{query.customerId}
+            </if>
+            <if test="query.customerCode != null and query.customerCode != ''">
+                <bind name="customerCodeLike" value="'%' + query.customerCode + '%'"/>
+                and tcp.customer_code like #{customerCodeLike}
+            </if>
+            <if test="query.customerName != null and query.customerName != ''">
+                <bind name="customerNameLike" value="'%' + query.customerName + '%'"/>
+                and tcp.customer_name like #{customerNameLike}
+            </if>
+            <if test="query.createTime != null">
+                and tcp.create_time between #{query.createTime[0]} and #{query.createTime[1]}
+            </if>
+        </where>
+        order by tcp.create_time desc
+    </select>
+    <select id="selectAwaitStatementDelegateCustomer"
+            resultType="com.gv.steel.system.base.entity.CustomerProfile">
+        select tcp.id, tcp.customer_code, tcp.customer_name,
+        tcp.factory_id, tcp.monthly_statement_way
+        from (
+        select unnest(#{param.customerIds,jdbcType=ARRAY,typeHandler=org.apache.ibatis.type.ArrayTypeHandler}) as
+        cutomer_id
+        ) temp
+        join t_customer_profile tcp on temp.cutomer_id = tcp.id
+        <where>
+            and tcp.delete_flag = 0
+            and tcp.customer_type = 0
+            <if test="param.factoryId != null">
+                and tcp.factory_id = #{param.factoryId}
+            </if>
+            <if test="param.customerCode != null and param.customerCode != ''">
+                <bind name="customerCodeLike" value="'%' + param.customerCode + '%'"/>
+                and tcp.customer_code like #{customerCodeLike}
+            </if>
+        </where>
+        order by tcp.customer_code
+    </select>
+</mapper>

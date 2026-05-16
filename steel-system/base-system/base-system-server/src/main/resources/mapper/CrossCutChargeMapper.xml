@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.CrossCutChargeDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.CrossCutCharge">
+        <result column="id" property="id"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="contract_id" property="contractId"/>
+        <result column="material_id" property="materialId" typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="material_name" property="materialName" typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="material_ply1" property="materialPly1"/>
+        <result column="material_ply2" property="materialPly2"/>
+        <result column="product_width1" property="productWidth1"/>
+        <result column="product_width2" property="productWidth2"/>
+        <result column="product_length1" property="productLength1"/>
+        <result column="product_length2" property="productLength2"/>
+        <result column="minimum_charge" property="minimumCharge"/>
+        <result column="minimum_weight" property="minimumWeight"/>
+        <result column="unit_price" property="unitPrice"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <resultMap id="PageVOMap" type="com.gv.steel.system.base.vo.CrossCutChargePageVO">
+        <id column="id" property="id"/>
+        <result column="factory_id" property="factoryId"/>
+        <result column="customer_code" property="customerCode"/>
+        <result column="material_id" property="materialId"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="material_name" property="materialName"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="material_ply1" property="materialPly1"/>
+        <result column="material_ply2" property="materialPly2"/>
+        <result column="product_width1" property="productWidth1"/>
+        <result column="product_width2" property="productWidth2"/>
+        <result column="product_length1" property="productLength1"/>
+        <result column="product_length2" property="productLength2"/>
+        <result column="minimum_charge" property="minimumCharge"/>
+        <result column="minimum_weight" property="minimumWeight"/>
+        <result column="unit_price" property="unitPrice"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+                    create_by,
+                    create_time,
+                    update_by,
+                    update_time,
+                    delete_flag,
+                    version,
+                    tenant_id,
+                contract_id, material_id, material_name, material_ply1, material_ply2, product_width1, product_width2, product_length1, product_length2, minimum_charge, minimum_weight, unit_price, remark
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="contractId != null and contractId != ''">
+                and contract_id = #{contractId}
+            </if>
+            <if test="materialId != null and materialId != ''">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialName != null and materialName != ''">
+                and material_name = #{materialName}
+            </if>
+            <if test="materialPly1 != null and materialPly1 != ''">
+                and material_ply1 = #{materialPly1}
+            </if>
+            <if test="materialPly2 != null and materialPly2 != ''">
+                and material_ply2 = #{materialPly2}
+            </if>
+            <if test="productWidth1 != null and productWidth1 != ''">
+                and product_width1 = #{productWidth1}
+            </if>
+            <if test="productWidth2 != null and productWidth2 != ''">
+                and product_width2 = #{productWidth2}
+            </if>
+            <if test="productLength1 != null and productLength1 != ''">
+                and product_length1 = #{productLength1}
+            </if>
+            <if test="productLength2 != null and productLength2 != ''">
+                and product_length2 = #{productLength2}
+            </if>
+            <if test="minimumCharge != null and minimumCharge != ''">
+                and minimum_charge = #{minimumCharge}
+            </if>
+            <if test="minimumWeight != null and minimumWeight != ''">
+                and minimum_weight = #{minimumWeight}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </sql>
+    <select id="selectCrossCutPage" resultMap="PageVOMap">
+        select tccc.id, tcp.factory_id,
+        tcp.customer_code,tccc.material_id,tccc.material_name,tccc.material_ply1,tccc.material_ply2,
+        tccc.product_width1,tccc.product_width2, tccc.product_length1,tccc.product_length2, tccc.minimum_charge,
+        tccc.minimum_weight,
+        tccc.unit_price, tpc.contract_no
+        from t_cross_cut_charge tccc
+        join t_processing_contract tpc on tccc.contract_id = tpc.id and tpc.delete_flag = 0
+        join t_customer_profile tcp on tpc.customer_id = tcp.id and tcp.delete_flag = 0
+        <where>
+            and tccc.delete_flag = 0
+            <if test="param.factoryId != null">
+                and tcp.factory_id = #{param.factoryId}
+            </if>
+            <if test="param.customerId != null">
+                and tpc.customer_id = #{param.customerId}
+            </if>
+            <if test="param.contractNo != null and param.contractNo != ''">
+                <bind name="contractNoLike" value="'%'+param.contractNo+'%'"/>
+                and tpc.contract_no like #{contractNoLike}
+            </if>
+            <if test="param.materialQualityId != null">
+                and #{param.materialQualityId} = any(tccc.material_id)
+            </if>
+            <if test="param.rawMaterialPly != null">
+                and #{param.rawMaterialPly} between tccc.material_ply1 and tccc.material_ply2
+            </if>
+            <if test="param.productWidth != null">
+                and #{param.productWidth} between tccc.product_width1 and tccc.product_width2
+            </if>
+            <if test="param.productLength != null">
+                and #{param.productLength} between tccc.product_length1 and tccc.product_length2
+            </if>
+        </where>
+        order by tpc.customer_id, tccc.material_id, tccc.material_ply1, tccc.product_width1, tccc.product_length1
+    </select>
+</mapper>

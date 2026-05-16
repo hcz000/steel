@@ -1,0 +1,30 @@
+server:
+  port: 5004
+  servlet:
+    context-path: /xxl-job-admin
+
+jasypt:
+  encryptor:
+    password: @jasypt.password@
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+# spring
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      username: @nacos.username@
+      password: @nacos.password@
+      discovery:
+        server-addr: @nacos.address@
+        metadata:
+          management.context-path: ${server.servlet.context-path}/actuator
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+  config:
+    import:
+      - optional:nacos:application-@profiles.active@.yml
+      - optional:nacos:${spring.application.name}-@profiles.active@.yml
+

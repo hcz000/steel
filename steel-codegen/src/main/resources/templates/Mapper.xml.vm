@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package.Mapper}.${table.mapperName}">
+
+    #if(${enableCache})
+        <!-- 开启二级缓存 -->
+        <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    #end
+    #if(${baseResultMap})
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="${package.Entity}.${entity}">
+            #foreach($field in ${table.fields})
+                #if(${field.keyFlag})##生成主键排在第一位
+                    <id column="${field.name}" property="${field.propertyName}"/>
+                #end
+            #end
+            #foreach($field in ${table.commonFields})##生成公共字段
+                #if(${field.columnName} != "tenant_id" || ${field.columnName} != "version")##生成普通字段
+                    <result column="${field.name}" property="${field.propertyName}"/>
+                #end
+            #end
+            #foreach($field in ${table.fields})
+                #if(!${field.keyFlag} || ${field.name} != "tenant_id" || ${field.name} != "version")##生成普通字段
+                    <result column="${field.name}" property="${field.propertyName}"/>
+                #end
+            #end
+        </resultMap>
+
+    #end
+    #if(${baseColumnList})
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+                #foreach($field in ${table.commonFields})
+                    ${field.columnName},
+                #end
+                ${table.fieldNames}
+        </sql>
+    #end
+    #if(${cfg.baseWhere})
+        <!-- 通用where查询条件 -->
+        <sql id="where">
+            <where>
+                #foreach($field in ${table.commonFields})
+                    #if(${field.columnName} != "TENANT_ID" || ${field.columnName} != "VERSION")
+                        <if test="${field.propertyName} != null and ${field.propertyName} != ''">
+                            and ${field.columnName} = #{${field.propertyName}}
+                        </if>
+                    #end
+                #end
+            </where>
+        </sql>
+    #end
+    #if(${cfg.conditionWhere})
+        <!-- 条件where查询条件 -->
+        <sql id="condition">
+            <where>
+                #foreach($field in ${table.fields})
+                    #if(${field.name} != "TENANT_ID" || ${field.name} != "VERSION")
+                        <if test="${field.propertyName} != null and ${field.propertyName} != ''">
+                            and ${field.name} = #{${field.propertyName}}
+                        </if>
+                    #end
+                #end
+            </where>
+        </sql>
+    #end
+</mapper>

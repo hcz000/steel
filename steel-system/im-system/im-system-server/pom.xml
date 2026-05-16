@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.gv.steel</groupId>
+        <artifactId>im-system</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>im-system-server</artifactId>
+    <packaging>jar</packaging>
+
+    <description>im 实时通讯 server 模块</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <netty.version>4.1.92.Final</netty.version>
+        <cim-server.version>4.2.6</cim-server.version>
+        <protobuf.version>3.21.5</protobuf.version>
+        <pushy.version>0.15.0</pushy.version>
+        <apns4j.version>1.1.4</apns4j.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>im-system-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-xss</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-mvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-job</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-i18n</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-rocketmq</artifactId>
+        </dependency>
+
+        <!-- linux下有效. 其他linux平台自行修改对应的classifier -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-epoll</artifactId>
+            <classifier>linux-x86_64</classifier>
+            <version>${netty.version}</version>
+        </dependency>
+        <!--cim server sdk-->
+        <dependency>
+            <groupId>com.farsunset</groupId>
+            <artifactId>cim-server-sdk-netty</artifactId>
+            <version>${cim-server.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.eatthepath</groupId>
+            <artifactId>pushy</artifactId>
+            <version>${pushy.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.teaey.apns4j</groupId>
+            <artifactId>apns4j</artifactId>
+            <version>${apns4j.version}</version>
+        </dependency>
+
+        <!--注册中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--配置中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!--undertow容器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <!-- 过滤后缀为pem、pfx的证书文件 -->
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>p12</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>cer</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>pem</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>pfx</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.xlsx</exclude>
+                    <exclude>**/*.xls</exclude>
+                    <exclude>**/*.p12</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+
+</project>

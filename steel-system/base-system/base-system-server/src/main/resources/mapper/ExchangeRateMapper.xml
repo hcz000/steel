@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.ExchangeRateDao">
+    <resultMap id="ExchangeRatePageMap" type="com.gv.steel.system.base.vo.ExchangeRatePageVO">
+        <id column="id" property="id"/>
+        <result column="target_short_name" property="targetShortName"/>
+        <result column="source_short_name" property="sourceShortName"/>
+        <result column="exchange_rate" property="exchangeRate"/>
+        <result column="source_name" property="sourceName"/>
+        <result column="target_name" property="targetName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <collection property="historyList" ofType="com.gv.steel.system.base.entity.HisExchangeRate">
+            <id column="his_id" property="id"/>
+            <result column="nid" property="nid"/>
+            <result column="his_target_short_name" property="targetShortName"/>
+            <result column="his_source_short_name" property="sourceShortName"/>
+            <result column="his_exchange_rate" property="exchangeRate"/>
+            <result column="his_source_name" property="sourceName"/>
+            <result column="his_target_name" property="targetName"/>
+            <result column="his_create_time" property="createTime"/>
+        </collection>
+    </resultMap>
+    <select id="selectExchangeRatePage_CONUNT" resultType="long">
+        select count(1)
+        from t_exchange_rate rate
+        <where>
+            and rate.delete_flag = 0
+            <if test="param.targetShortName != null and param.targetShortName != ''">
+                <bind name="targetShortName" value="'%' + param.targetShortName + '%'"/>
+                and rate.target_short_name like #{targetShortName}
+            </if>
+            <if test="param.sourceShortName != null and param.sourceShortName != ''">
+                <bind name="sourceShortName" value="'%' + param.sourceShortName + '%'"/>
+                and rate.target_short_name like #{sourceShortName
+            </if>
+            <if test="param.timeZone != null and param.timeZone.length == 2">
+                and rate.create_time &gt;= #{param.timeZone[0]}
+                and rate.create_time &lt; #{param.timeZone[1]} + interval '1 day'
+            </if>
+        </where>
+    </select>
+    <select id="selectExchangeRatePage" resultMap="ExchangeRatePageMap">
+        select rate.id, rate.target_short_name, rate.source_short_name,
+        rate.exchange_rate, rate.source_name, rate.target_name,
+        rate.create_time, rate.update_time,
+        his_rate.id as his_id, his_rate.nid, his_rate.target_short_name as his_target_short_name,
+        his_rate.source_short_name as his_source_short_name,
+        his_rate.exchange_rate as his_exchange_rate,
+        his_rate.source_name as his_source_name,
+        his_rate.target_name as his_target_name,
+        his_rate.create_time as his_create_time
+        from t_exchange_rate rate
+        left join t_his_exchange_rate his_rate
+        on rate.id = his_rate.nid
+        <where>
+            and rate.delete_flag = 0
+            <if test="param.targetShortName != null and param.targetShortName != ''">
+                <bind name="targetShortName" value="'%' + param.targetShortName + '%'"/>
+                and rate.target_short_name like #{targetShortName}
+            </if>
+            <if test="param.sourceShortName != null and param.sourceShortName != ''">
+                <bind name="sourceShortName" value="'%' + param.sourceShortName + '%'"/>
+                and rate.target_short_name like #{sourceShortName
+            </if>
+            <if test="param.timeZone != null and param.timeZone.length == 2">
+                and rate.create_time &gt;= #{param.timeZone[0]}
+                and rate.create_time &lt; #{param.timeZone[1]} + interval '1 day'
+            </if>
+        </where>
+        order by rate.create_time desc, his_rate.create_time desc
+    </select>
+</mapper>

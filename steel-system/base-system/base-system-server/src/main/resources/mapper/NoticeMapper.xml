@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.NoticeDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.Notice">
+        <result column="id" property="id"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="order_sort" property="orderSort"/>
+        <result column="publish_status" property="publishStatus"/>
+        <result column="create_name" property="createName"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+                    create_by,
+                    create_time,
+                    update_by,
+                    update_time,
+                    delete_flag,
+                    version,
+                    tenant_id,
+                title, content, order_sort, publish_status, create_name
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="orderSort != null and orderSort != ''">
+                and order_sort = #{orderSort}
+            </if>
+            <if test="publishStatus != null and publishStatus != ''">
+                and publish_status = #{publishStatus}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+        </where>
+    </sql>
+    <select id="getPage" resultType="com.gv.steel.system.base.entity.Notice">
+        select tn.*, COALESCE(tnr.read_flag, 0) readFlag
+        from t_notice as tn
+        left join t_notice_read as tnr
+        on tnr.user_id = #{param.userId} and tnr.notice_id = tn.id
+        <where>
+            and tn.delete_flag = 0
+            <if test="param.title!= null">
+                <bind name="likeTitle" value="'%' + param.title + '%'"/>
+                and tn.title like #{likeTitle}
+            </if>
+            <if test="param.publishStatus != null">
+                and tn.publish_status = #{param.publishStatus}
+            </if>
+        </where>
+        order by tn.create_time DESC
+    </select>
+</mapper>

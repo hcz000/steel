@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.ProcessingContractDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.ProcessingContract">
+        <result column="id" property="id"/>
+        <result column="create_name" property="createName"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="custom_id" property="customerId"/>
+        <result column="contract_no" property="contractNo"/>
+        <result column="signed_date" property="signedDate"/>
+        <result column="hoisting_cost" property="hoistingCost"/>
+        <result column="raw_storage_cost" property="rawStorageCost"/>
+        <result column="raw_free_days" property="rawFreeDays"/>
+        <result column="product_storage_cost" property="productStorageCost"/>
+        <result column="product_free_days" property="productFreeDays"/>
+        <result column="shelf_return_flag" property="shelfReturnFlag"/>
+        <result column="cross_cut_charge_way" property="crossCutChargeWay"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+                    create_name,
+                    create_by,
+                    create_time,
+                    update_by,
+                    update_time,
+                    delete_flag,
+                    version,
+                    tenant_id,
+                customer_id, contract_no, signed_date, hoisting_cost, raw_storage_cost, raw_free_days, product_storage_cost, product_free_days, shelf_return_flag, cross_cut_charge_way
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="customerId != null and customerId != ''">
+                and customer_id = #{customerId}
+            </if>
+            <if test="contractNo != null and contractNo != ''">
+                and contract_no = #{contractNo}
+            </if>
+            <if test="signedDate != null and signedDate != ''">
+                and signed_date = #{signedDate}
+            </if>
+            <if test="hoistingCost != null and hoistingCost != ''">
+                and hoisting_cost = #{hoistingCost}
+            </if>
+            <if test="rawStorageCost != null and rawStorageCost != ''">
+                and raw_storage_cost = #{rawStorageCost}
+            </if>
+            <if test="rawFreeDays != null and rawFreeDays != ''">
+                and raw_free_days = #{rawFreeDays}
+            </if>
+            <if test="productStorageCost != null and productStorageCost != ''">
+                and product_storage_cost = #{productStorageCost}
+            </if>
+            <if test="productFreeDays != null and productFreeDays != ''">
+                and product_free_days = #{productFreeDays}
+            </if>
+            <if test="shelfReturnFlag != null and shelfReturnFlag != ''">
+                and shelf_return_flag = #{shelfReturnFlag}
+            </if>
+            <if test="crossCutChargeWay != null and crossCutChargeWay != ''">
+                and cross_cut_charge_way = #{crossCutChargeWay}
+            </if>
+        </where>
+    </sql>
+    <select id="selectProcessingContractPage"
+            resultType="com.gv.steel.system.base.vo.ProcessingContractPageVO">
+        SELECT tpc.id,
+        tpc.contract_no,
+        tpc.customer_id,
+        tcp.customer_code as customer_name,
+        tpc.signed_date,
+        tpc.create_time,
+        tpc.create_name
+        FROM t_processing_contract tpc, t_customer_profile tcp
+        <where>
+            and tpc.customer_id = tcp.id and tpc.delete_flag = 0 and tcp.delete_flag = 0
+            <if test="query.customerId != null">
+                and tpc.customer_id = #{query.customerId}
+            </if>
+            <if test="query.contractNo != null and query.contractNo != ''">
+                <bind name="contractNoLike" value="'%' + query.contractNo + '%'"/>
+                and tpc.contract_no like #{contractNoLike}
+            </if>
+            <if test="query.signedDate != null">
+                and tpc.signed_date between #{query.signedDate[0]} and #{query.signedDate[1]}
+            </if>
+        </where>
+
+    </select>
+</mapper>

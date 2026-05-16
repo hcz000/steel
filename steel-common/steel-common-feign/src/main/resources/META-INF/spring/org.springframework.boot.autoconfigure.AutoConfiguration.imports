@@ -1,0 +1,5 @@
+com.gv.steel.common.feign.CustomRestTemplateAutoConfiguration
+com.gv.steel.common.feign.CustomFeignRetryAutoConfiguration
+com.gv.steel.common.feign.SentinelAutoConfiguration
+com.gv.steel.common.feign.VersionIsolationAutoConfig
+com.gv.steel.common.feign.interceptor.FeignClientInterceptor

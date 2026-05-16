@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.RollingChargeDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.RollingCharge">
+        <result column="id" property="id"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="contract_id" property="contractId"/>
+        <result column="material_id" property="materialId" typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="material_name" property="materialName" typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="model" property="model" typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="material_ply1" property="materialPly1"/>
+        <result column="material_ply2" property="materialPly2"/>
+        <result column="product_ply1" property="productPly1"/>
+        <result column="product_ply2" property="productPly2"/>
+        <result column="minimum_charge" property="minimumCharge"/>
+        <result column="minimum_weight" property="minimumWeight"/>
+        <result column="unit_price" property="unitPrice"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <resultMap id="PageVOMap" type="com.gv.steel.system.base.vo.RollingChargePageVO">
+        <id column="id" property="id"/>
+        <result column="factory_id" property="factoryId"/>
+        <result column="customer_code" property="customerCode"/>
+        <result column="material_id" property="materialId"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="material_name" property="materialName"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="model" property="model"
+                typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result column="material_ply1" property="materialPly1"/>
+        <result column="material_ply2" property="materialPly2"/>
+        <result column="product_ply1" property="productPly1"/>
+        <result column="product_ply2" property="productPly2"/>
+        <result column="minimum_charge" property="minimumCharge"/>
+        <result column="minimum_weight" property="minimumWeight"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+                    create_by,
+                    create_time,
+                    update_by,
+                    update_time,
+                    delete_flag,
+                    version,
+                    tenant_id,
+                contract_id, material_id, material_name, model, material_ply1, material_ply2, product_ply1, product_ply2, minimum_charge, minimum_weight, unit_price, remark
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="contractId != null and contractId != ''">
+                and contract_id = #{contractId}
+            </if>
+            <if test="materialId != null and materialId != ''">
+                and material_id = #{materialId}
+            </if>
+            <if test="materialName != null and materialName != ''">
+                and material_name = #{materialName}
+            </if>
+            <if test="model != null and model != ''">
+                and model = #{model}
+            </if>
+            <if test="materialPly1 != null and materialPly1 != ''">
+                and material_ply1 = #{materialPly1}
+            </if>
+            <if test="materialPly2 != null and materialPly2 != ''">
+                and material_ply2 = #{materialPly2}
+            </if>
+            <if test="productPly1 != null and productPly1 != ''">
+                and product_ply1 = #{productPly1}
+            </if>
+            <if test="productPly2 != null and productPly2 != ''">
+                and product_ply2 = #{productPly2}
+            </if>
+            <if test="minimumCharge != null and minimumCharge != ''">
+                and minimum_charge = #{minimumCharge}
+            </if>
+            <if test="minimumWeight != null and minimumWeight != ''">
+                and minimum_weight = #{minimumWeight}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </sql>
+    <select id="selectRollingChargePage" resultMap="PageVOMap">
+        select trcc.id, tcp.factory_id,
+        tcp.customer_code,trcc.material_id,trcc.material_name,trcc.model,trcc.material_ply1,trcc.material_ply2,
+        trcc.product_ply1,trcc.product_ply2, trcc.minimum_charge, trcc.minimum_weight, trcc.unit_price, tpc.contract_no
+        from t_rolling_charge trcc
+        join t_processing_contract tpc on trcc.contract_id = tpc.id and tpc.delete_flag = 0
+        join t_customer_profile tcp on tpc.customer_id = tcp.id and tcp.delete_flag = 0
+        <where>
+            and trcc.delete_flag = 0
+            <if test="param.factoryId != null">
+                and tcp.factory_id = #{param.factoryId}
+            </if>
+            <if test="param.customerId != null">
+                and tpc.customer_id = #{param.customerId}
+            </if>
+            <if test="param.contractNo != null and param.contractNo != ''">
+                <bind name="contractNoLike" value="'%'+param.contractNo+'%'"/>
+                and tpc.contract_no like #{contractNoLike}
+            </if>
+            <if test="param.materialQualityId != null">
+                and #{param.materialQualityId} = any(trcc.material_id)
+            </if>
+            <if test="param.model != null and param.model != ''">
+                and #{param.model} = any(trcc.model)
+            </if>
+            <if test="param.rawMaterialPly != null">
+                and #{param.rawMaterialPly} between trcc.material_ply1 and trcc.material_ply2
+            </if>
+            <if test="param.productPly != null">
+                and #{param.productPly} between trcc.product_ply1 and trcc.product_ply2
+            </if>
+        </where>
+        order by tpc.customer_id, trcc.material_id, trcc.material_ply1, trcc.product_ply1
+    </select>
+</mapper>

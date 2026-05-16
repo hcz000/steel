@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.gv.steel</groupId>
+        <artifactId>steel-cloud-prd</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>steel-system</artifactId>
+    <description>web服务提供聚合模块</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>user-system</module>
+        <module>im-system</module>
+        <module>base-system</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.gv.steel</groupId>
+                <artifactId>user-system-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gv.steel</groupId>
+                <artifactId>im-system-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gv.steel</groupId>
+                <artifactId>base-system-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.gv.steel</groupId>
+        <artifactId>base-system</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>base-system-api</artifactId>
+    <packaging>jar</packaging>
+
+    <description>base api 模块</description>
+
+    <dependencies>
+        <!-- 公共工具模块 -->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-core</artifactId>
+        </dependency>
+
+        <!-- mybatis 模块 -->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-mybatis</artifactId>
+        </dependency>
+
+        <!--open feign 模块-->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-feign</artifactId>
+        </dependency>
+
+        <!--swagger-->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-swagger</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>im-system-api</artifactId>
+        </dependency>
+
+        <!--依赖MQ-->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-rocketmq</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--依赖Redis-->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-redis</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--依赖Excel导入导出-->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-easyexcel</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

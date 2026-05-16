@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.gv.steel</groupId>
+        <artifactId>steel-common</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>steel-common-mvc</artifactId>
+    <packaging>jar</packaging>
+
+    <description>全局 mvc 处理模块</description>
+
+    <dependencies>
+        <!-- 公共工具模块 -->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-core</artifactId>
+        </dependency>
+
+        <!--xss过滤-->
+        <dependency>
+            <groupId>com.gv.steel</groupId>
+            <artifactId>steel-common-xss</artifactId>
+        </dependency>
+
+        <!--spring mvc-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+    </dependencies>
+</project>

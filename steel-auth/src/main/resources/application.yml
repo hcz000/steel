@@ -1,0 +1,27 @@
+server:
+  port: 3000
+
+jasypt:
+  encryptor:
+    password: ${jasypt.password}
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      username: ${nacos.username}
+      password: ENC(8V2AypwY1Z527RWYMJTBrvz9rbNbgHPaMJdKQu3/7dlE=)
+      discovery:
+        register-enabled: false
+        server-addr: ${nacos.address}
+        metadata:
+          version: @version@
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+  config:
+    import:
+      - nacos:application-@profiles.active@.yml
+      - nacos:${spring.application.name}-@profiles.active@.yml

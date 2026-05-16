@@ -1,0 +1,101 @@
+package ${package.Controller};
+
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+    #if(${restControllerStyle})
+    import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+    import io.swagger.v3.oas.annotations.Parameters;
+    #else
+    import org.springframework.stereotype.Controller;
+    #end
+    #if(${superControllerClassPackage})
+    import ${superControllerClassPackage};
+    #end
+
+import com.gv.steel.common.core.api.Result;
+import com.gv.steel.common.core.api.PageResult;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import javax.validation.Valid;
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Tag(name = "$!{table.comment}接口")
+    #if(${restControllerStyle})
+    @RestController
+    #end
+@RequiredArgsConstructor
+@RequestMapping("/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end" )
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+#else
+@SecurityRequirement(name = HttpHeaders.AUTHORIZATION)
+public class ${table.controllerName} {
+#end
+
+private final ${table.serviceName} ${cfg.servicename};
+
+/**
+ * ${table.comment}列表
+ */
+@Operation(summary = "${table.comment}查询列表", hidden = true)
+@Parameters({
+        @Parameter(name = "current", description = "当前页"),
+        @Parameter(name = "size", description = "每页显示条数")
+})
+@GetMapping("/page")
+public Result<PageResult<${entity}>>getPage(@Parameter(hidden = true) Page<${entity}> page){
+        return Result.ok(PageResult.<${entity}>builder().build().pageResult(${cfg.servicename}.page(page)));
+        }
+
+/**
+ * ${table.comment}查询
+ */
+@Operation(summary = "${table.comment}查询", hidden = true)
+@Parameter(name = "id", description = "${table.comment}ID", required = true)
+@GetMapping("/{id:\\d+}")
+public Result<${entity}> find${entity}ById(@PathVariable Long id){
+        return Result.ok(${cfg.servicename}.getById(id));
+        }
+
+/**
+ * ${table.comment}新增
+ */
+@Operation(summary = "${table.comment}新增", hidden = true)
+@PostMapping
+public Result<Boolean> save(@RequestBody @Valid ${entity} ${cfg.classname}){
+        return Result.ok(${cfg.servicename}.save(${cfg.classname}));
+        }
+
+/**
+ * ${table.comment}修改
+ */
+@Operation(summary = "${table.comment}修改", hidden = true)
+@PutMapping
+public Result<Boolean> update(@RequestBody @Valid ${entity} ${cfg.classname}){
+        return Result.ok(${cfg.servicename}.updateById(${cfg.classname}));
+        }
+
+/**
+ * ${table.comment}删除
+ */
+@Operation(summary = "${table.comment}删除", hidden = true)
+@Parameter(name = "id", description = "${table.comment}ID", required = true)
+@DeleteMapping("/{id:\\d+}")
+public Result<Boolean> delete(@PathVariable Long id){
+        return Result.ok(${cfg.servicename}.removeById(id));
+        }
+        }

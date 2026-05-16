@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>steel-cloud-prd</artifactId>
+        <groupId>com.gv.steel</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>steel-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>公共聚合模块</description>
+
+    <modules>
+        <module>steel-common-bom</module>
+        <module>steel-common-core</module>
+        <module>steel-common-mybatis</module>
+        <module>steel-common-xss</module>
+        <module>steel-common-mvc</module>
+        <module>steel-common-feign</module>
+        <module>steel-common-redis</module>
+        <module>steel-common-job</module>
+        <module>steel-common-security</module>
+        <module>steel-common-log</module>
+        <module>steel-common-swagger</module>
+        <module>steel-common-oss</module>
+        <module>steel-common-datasource</module>
+        <module>steel-common-easyexcel</module>
+        <module>steel-common-seata</module>
+        <module>steel-common-i18n</module>
+        <module>steel-common-rocketmq</module>
+        <module>steel-common-shardingjdbc</module>
+    </modules>
+</project>

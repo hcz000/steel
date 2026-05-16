@@ -1,0 +1,19 @@
+# mybaits-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*Mapper.xml
+  type-aliases-package: com.gv.steel.**.model
+  type-enums-package: com.gv.steel.**.enums
+  global-config:
+    banner: false
+    db-config:
+      id-type: ASSIGN_ID
+      insert-strategy: NOT_NULL
+      update-strategy: NOT_NULL
+      table-underline: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    shrink-whitespaces-in-sql: true
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: false
+    map-underscore-to-camel-case: true

@@ -1,0 +1,7 @@
+com.gv.steel.common.security.service.OAuthSysUserDetailsServiceImpl
+com.gv.steel.common.security.service.AppOAuthSysUserDetailsServiceImpl
+com.gv.steel.common.security.service.RedisOAuth2AuthorizationConsentService
+com.gv.steel.common.security.service.RedisOAuth2AuthorizationService
+com.gv.steel.common.security.service.RemoteRegisteredClientRepository
+com.gv.steel.common.security.component.SecurityInnerAspect
+com.gv.steel.common.security.filter.UserInfoFilter

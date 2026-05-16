@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.user.dao.SysUserDao">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="baseResultMap" type="com.gv.steel.system.user.vo.UserVO">
+        <id column="user_id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="phone" property="phone"/>
+        <result column="avatar" property="avatar"/>
+        <result column="ucreate_time" property="createTime"/>
+        <result column="uupdate_time" property="updateTime"/>
+        <result column="lock_flag" property="lockFlag"/>
+        <result column="deptId" property="deptId"/>
+        <result column="deptName" property="deptName"/>
+        <collection property="roleList" ofType="com.gv.steel.system.user.entity.SysRole"
+                    select="com.gv.steel.system.user.dao.SysRoleDao.listRolesByUserId" column="user_id"/>
+        <collection property="factoryList" ofType="com.gv.steel.system.user.entity.SysFactory"
+                    select="com.gv.steel.system.user.dao.SysFactoryDao.listFactoriesByUserId" column="user_id"/>
+        <collection property="teamList" ofType="com.gv.steel.system.user.entity.SysTeam"
+                    select="com.gv.steel.system.user.dao.SysTeamDao.listTeamsByUserId" column="user_id"/>
+    </resultMap>
+
+    <!-- userVo结果集 -->
+    <resultMap id="userVoResultMap" type="com.gv.steel.system.user.vo.UserVO">
+        <id column="user_id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="phone" property="phone"/>
+        <result column="avatar" property="avatar"/>
+        <result column="ucreate_time" property="createTime"/>
+        <result column="uupdate_time" property="updateTime"/>
+        <result column="lock_flag" property="lockFlag"/>
+        <result column="deptId" property="deptId"/>
+        <result column="deptName" property="deptName"/>
+        <collection property="roleList" ofType="com.gv.steel.system.user.entity.SysRole">
+            <id column="role_id" property="id"/>
+            <result column="role_name" property="roleName"/>
+            <result column="role_code" property="roleCode"/>
+            <result column="role_desc" property="roleDesc"/>
+            <result column="rcreate_time" property="createTime"/>
+            <result column="rupdate_time" property="updateTime"/>
+        </collection>
+        <collection property="factoryList" ofType="com.gv.steel.system.user.entity.SysFactory"
+                    select="com.gv.steel.system.user.dao.SysFactoryDao.listFactoriesByUserId" column="user_id"/>
+        <collection property="teamList" ofType="com.gv.steel.system.user.entity.SysTeam"
+                    select="com.gv.steel.system.user.dao.SysTeamDao.listTeamsByUserId" column="user_id"/>
+    </resultMap>
+
+    <resultMap id="userDetailVoResultMap" type="com.gv.steel.system.user.vo.UserDetailVO">
+        <id column="user_id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="phone" property="phone"/>
+        <result column="avatar" property="avatar"/>
+        <result column="ucreate_time" property="createTime"/>
+        <result column="uupdate_time" property="updateTime"/>
+        <result column="lock_flag" property="lockFlag"/>
+        <result column="deptId" property="deptId"/>
+        <result column="deptName" property="deptName"/>
+        <collection property="role" ofType="java.lang.Long"
+                    select="com.gv.steel.system.user.dao.SysUserRoleDao.listRoleIdsByUserId" column="user_id"/>
+        <collection property="factoryIds" ofType="java.lang.Long"
+                    select="com.gv.steel.system.user.dao.SysUserFactoryDao.listFactoryIdsByUserId" column="user_id"/>
+        <collection property="teamIds" ofType="java.lang.Long"
+                    select="com.gv.steel.system.user.dao.SysUserTeamDao.listTeamIdsByUserId" column="user_id"/>
+    </resultMap>
+
+    <sql id="userRoleSql">
+        sys_user
+        .
+        id
+        AS user_id,
+		sys_user.username,
+		sys_user.nickname,
+		sys_user."password",
+		sys_user.salt,
+		sys_user.phone,
+		sys_user.avatar,
+		sys_user.dept_id,
+		sys_user.create_time AS ucreate_time,
+		sys_user.update_time AS uupdate_time,
+		sys_user.lock_flag   AS lock_flag,
+		sys_user.dept_id     AS deptId,
+		r.id 				 AS role_id,
+		r.role_name,
+		r.role_code,
+		r.role_desc,
+		r.create_time        AS rcreate_time,
+		r.update_time        AS rupdate_time
+    </sql>
+
+    <sql id="userRoleDeptSql">
+        sys_user
+        .
+        id
+        AS user_id,
+		sys_user.username,
+		sys_user.nickname,
+		sys_user.salt,
+		sys_user.phone,
+		sys_user.avatar,
+		sys_user.dept_id     AS deptId,
+		sys_user.create_time AS ucreate_time,
+		sys_user.update_time AS uupdate_time,
+		sys_user.lock_flag   AS lock_flag,
+		r.id				 AS role_id,
+		r.role_name,
+		r.role_code,
+		r.role_desc,
+		r.create_time        AS rcreate_time,
+		r.update_time        AS rupdate_time,
+		d.name               AS deptName
+    </sql>
+    <sql id="userDetailSql">
+        sys_user
+        .
+        id
+        AS user_id,
+		sys_user.username,
+		sys_user.nickname,
+		sys_user.salt,
+		sys_user.phone,
+		sys_user.avatar,
+        sys_user.create_time AS ucreate_time,
+		sys_user.update_time AS uupdate_time,
+		sys_user.lock_flag   AS lock_flag,
+		sys_user.dept_id     AS deptId,
+        d.name               AS deptName
+    </sql>
+
+    <select id="getUserVoByUsername" resultMap="userVoResultMap">
+        SELECT
+        <include refid="userRoleSql"/>
+        FROM sys_user AS sys_user
+        LEFT JOIN sys_user_role AS ur ON ur.user_id = sys_user.id
+        LEFT JOIN sys_role AS r ON r.id = ur.role_id
+        WHERE sys_user.username = #{username}
+    </select>
+
+    <select id="getUserVoById" resultMap="userDetailVoResultMap">
+        SELECT
+        <include refid="userDetailSql"/>
+        FROM sys_user AS sys_user
+        LEFT JOIN sys_dept AS d ON d.id = sys_user.dept_id
+        WHERE sys_user.id = #{id}
+    </select>
+
+    <select id="getUserVosPage" resultMap="baseResultMap">
+        SELECT sys_user.id AS user_id,
+        sys_user.username,
+        sys_user.nickname,
+        sys_user.salt,
+        sys_user.phone,
+        sys_user.avatar,
+        sys_user.dept_id,
+        sys_user.create_time AS ucreate_time,
+        sys_user.update_time AS uupdate_time,
+        sys_user.delete_flag,
+        sys_user.lock_flag AS lock_flag,
+        sys_user.dept_id AS deptId,
+        sys_dept.name AS deptName
+        FROM sys_user
+        LEFT JOIN sys_dept ON sys_dept.id = sys_user.dept_id
+        <where>
+            sys_user.delete_flag = 0
+            <if test="query.username != null and query.username != ''">
+                <bind name="usernameLike" value="'%' + query.username + '%'"/>
+                and sys_user.username LIKE #{usernameLike}
+            </if>
+            <if test="query.nickname != null and query.nickname != ''">
+                <bind name="nicknameLike" value="'%' + query.nickname + '%'"/>
+                and sys_user.nickname LIKE #{nicknameLike}
+            </if>
+            <if test="query.phone != null and query.phone != ''">
+                <bind name="phoneLike" value="'%' + query.phone + '%'"/>
+                and sys_user.phone LIKE #{phoneLike}
+            </if>
+        </where>
+        ORDER BY sys_user.create_time DESC
+    </select>
+
+    <select id="selectVoList" resultMap="baseResultMap">
+        SELECT u.id AS user_id,
+        u.username,
+        u.nickname,
+        u.salt,
+        u.phone,
+        u.avatar,
+        u.dept_id,
+        u.create_time ucreate_time,
+        u.update_time uupdate_time,
+        u.delete_flag,
+        u.lock_flag,
+        d.name AS deptName
+        FROM sys_user u
+        LEFT JOIN sys_dept d ON d.id = u.dept_id
+        <where>
+            u.delete_flag = 0
+            <if test="query.username != null and query.username != ''">
+                <bind name="usernameLike" value="'%' + query.username + '%'"/>
+                AND u.username LIKE #{usernameLike}
+            </if>
+            <if test="query.deptId != null and query.deptId != ''">
+                AND u.dept_id = #{query.deptId}
+            </if>
+            <if test="query.factoryIds != null and query.factoryIds.size() > 0">
+                AND EXISTS (
+                SELECT uf1.user_id FROM sys_user_factory uf1
+                WHERE uf1.user_id = u.id
+                AND uf1.factory_id IN
+                <foreach collection="query.factoryIds" item="factoryId" separator="," open="(" close=")">
+                    #{factoryId}
+                </foreach>
+                )
+            </if>
+        </where>
+        ORDER BY u.create_time DESC
+    </select>
+</mapper>

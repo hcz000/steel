@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gv.steel.system.base.dao.TaskNoticeDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gv.steel.system.base.entity.TaskNotice">
+        <result column="id" property="id"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="table_id" property="tableId"/>
+        <result column="table_name" property="tableName"/>
+        <result column="module" property="module"/>
+        <result column="title" property="title"/>
+        <result column="url" property="url"/>
+        <result column="params" property="params"/>
+        <result column="receive_scope" property="receiveScope"/>
+        <result column="receive_id" property="receiveId"/>
+        <result column="receive_name" property="receiveName"/>
+        <result column="finish_time" property="finishTime"/>
+        <result column="status" property="status"/>
+        <result column="create_name" property="createName"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+                    create_by,
+                    create_time,
+                    update_by,
+                    update_time,
+                    delete_flag,
+                    version,
+                    tenant_id,
+                table_id, table_name, module, title, url, params, receive_scope, receive_id, receive_name, finish_time, status, create_name
+    </sql>
+    <!-- 通用where查询条件 -->
+    <sql id="where">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="version != null and version != ''">
+                and version = #{version}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </sql>
+    <!-- 条件where查询条件 -->
+    <sql id="condition">
+        <where>
+            <if test="tableId != null and tableId != ''">
+                and table_id = #{tableId}
+            </if>
+            <if test="tableName != null and tableName != ''">
+                and table_name = #{tableName}
+            </if>
+            <if test="module != null and module != ''">
+                and module = #{module}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="params != null and params != ''">
+                and params = #{params}
+            </if>
+            <if test="receiveScope != null and receiveScope != ''">
+                and receive_scope = #{receiveScope}
+            </if>
+            <if test="receiveId != null and receiveId != ''">
+                and receive_id = #{receiveId}
+            </if>
+            <if test="receiveName != null and receiveName != ''">
+                and receive_name = #{receiveName}
+            </if>
+            <if test="finishTime != null and finishTime != ''">
+                and finish_time = #{finishTime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="createName != null and createName != ''">
+                and create_name = #{createName}
+            </if>
+        </where>
+    </sql>
+    <delete id="deleteByPhysics">
+        delete
+        from t_task_notice
+        <where>
+            <choose>
+                <when test="taskIds != null and taskIds.size() > 0">
+                    <foreach collection="taskIds" item="id" open="id in (" close=")" separator=",">
+                        #{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    and 1 != 1
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+</mapper>
